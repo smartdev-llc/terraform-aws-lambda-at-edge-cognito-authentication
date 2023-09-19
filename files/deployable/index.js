@@ -94,6 +94,7 @@ async function createAuthenticatorFromConfiguration() {
 }
 
 exports.handler = async (request) => {
+  const rootLogger = getLogger();
   let authenticator = cache.get(cacheAuthenticatorKey);
 
   if (!authenticator) {
@@ -101,5 +102,6 @@ exports.handler = async (request) => {
     authenticator = cache.get(cacheAuthenticatorKey);
   }
 
+  rootLogger.info(request);
   return authenticator.handle(request);
 };
